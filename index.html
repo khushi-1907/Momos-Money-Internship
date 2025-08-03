@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Momo Money Tech Adventure 🥟💻✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --dark-bg: #0a0a0a;
+            --dark-card: #1a1a1a;
+            --pink-primary: #C98986;
+            --pink-secondary: #FF69B4;
+            --pink-light: #FFB6C1;
+            --text-primary: #ffffff;
+            --text-secondary: #e0e0e0;
+            --accent: #9370DB;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1a0033 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: var(--text-primary);
+            position: relative;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 20px 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            font-family: 'Comic Neue', cursive;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            color: var(--pink-primary);
+            text-shadow: 0 0 10px rgba(255, 20, 147, 0.5);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 15px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Stats Panel */
+        .stats-panel {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background: var(--dark-card);
+            border: 2px solid var(--pink-secondary);
+            border-radius: 20px;
+            padding: 15px;
+            text-align: center;
+            min-width: 150px;
+            box-shadow: 0 8px 20px rgba(255, 20, 147, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(255, 20, 147, 0.3);
+        }
+
+        .stat-value {
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            font-weight: 700;
+            color: var(--pink-primary);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: clamp(0.8rem, 2vw, 1rem);
+            color: var(--text-secondary);
+        }
+
+        /* Section Styling */
+        .section {
+            background: var(--dark-card);
+            border-radius: 25px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 20, 147, 0.3);
+        }
+
+        .section-title {
+            font-family: 'Comic Neue', cursive;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-align: center;
+            color: var(--pink-primary);
+        }
+
+        /* Momo Eating Section */
+        .momo-eating {
+            border: 2px solid var(--pink-secondary);
+        }
+
+        .plate-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .plate {
+            width: clamp(200px, 50vw, 300px);
+            height: clamp(200px, 50vw, 300px);
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            border-radius: 50%;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-bottom: 15px;
+            border: 2px solid var(--pink-secondary);
+        }
+
+        .plate::before {
+            content: '';
+            position: absolute;
+            width: 80%;
+            height: 80%;
+            background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
+            border-radius: 50%;
+            box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .momo {
+            position: absolute;
+            font-size: clamp(2rem, 5vw, 2.5rem);
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            animation: bounce 2s infinite alternate;
+            z-index: 2;
+        }
+
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-10px); }
+        }
+
+        .momo:hover {
+            transform: scale(1.2);
+        }
+
+        .momo.eaten {
+            animation: eat 0.5s ease-out forwards;
+        }
+
+        @keyframes eat {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(2) translateY(-50px);
+                opacity: 0;
+            }
+        }
+
+        .momo-instruction {
+            text-align: center;
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-top: 10px;
+            font-size: clamp(0.8rem, 2vw, 1rem);
+        }
+
+        /* Money Collection Section */
+        .money-collection {
+            border: 2px solid var(--pink-secondary);
+        }
+
+        .money-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: clamp(200px, 40vh, 300px);
+            position: relative;
+        }
+
+        .money-emoji {
+            font-size: clamp(3rem, 8vw, 5rem);
+            animation: pulse 2s infinite ease-in-out;
+            transition: all 0.3s ease;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .money-pile {
+            position: absolute;
+            bottom: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 100%;
+        }
+
+        .money-coin {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            margin: 5px;
+            animation: float 3s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .collect-button {
+            background: linear-gradient(90deg, var(--pink-primary), var(--pink-secondary));
+            color: var(--text-primary);
+            border: none;
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 20px auto 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 20, 147, 0.4);
+        }
+
+        .collect-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(255, 20, 147, 0.6);
+        }
+
+        /* Floating Money Emojis */
+        .floating-money {
+            position: absolute;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            font-weight: bold;
+            color: var(--pink-light);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            animation: floatMoney 2s ease-out forwards;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        @keyframes floatMoney {
+            0% {
+                transform: translateY(0) scale(0.5);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* Tech Internship Quote Section */
+        .tech-internship {
+            border: 2px solid var(--pink-secondary);
+        }
+
+        .quote-container {
+            background: linear-gradient(135deg, var(--pink-primary), var(--accent));
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 15px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quote-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+            animation: pulse 4s infinite ease-in-out;
+        }
+
+        .quote-text {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            color: var(--text-primary);
+            font-style: italic;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+            line-height: 1.5;
+        }
+
+        .quote-author {
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            color: rgba(255, 255, 255, 0.9);
+            position: relative;
+            z-index: 1;
+        }
+
+        .new-quote-button {
+            background: var(--dark-card);
+            color: var(--pink-primary);
+            border: 2px solid var(--pink-secondary);
+            border-radius: 50px;
+            padding: 10px 25px;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 auto;
+        }
+
+        .new-quote-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(255, 20, 147, 0.4);
+        }
+
+        /* Girly Items Shop */
+        .girly-shop {
+            border: 2px solid var(--pink-secondary);
+        }
+
+        .shop-categories {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .category-tab {
+            background: var(--dark-card);
+            color: var(--text-primary);
+            border: 2px solid var(--pink-secondary);
+            border-radius: 20px;
+            padding: 6px 15px;
+            font-size: clamp(0.8rem, 2vw, 1rem);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-tab:hover {
+            background: var(--pink-primary);
+            transform: translateY(-3px);
+        }
+
+        .category-tab.active {
+            background: var(--pink-primary);
+            box-shadow: 0 4px 10px rgba(255, 20, 147, 0.5);
+        }
+
+        .shop-category {
+            display: none;
+        }
+
+        .shop-category.active {
+            display: block;
+        }
+
+        .shop-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 12px;
+        }
+
+        .shop-item {
+            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+            border: 2px solid var(--pink-secondary);
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .shop-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(255, 20, 147, 0.3);
+            border-color: var(--pink-primary);
+        }
+
+        .shop-item-icon {
+            font-size: clamp(1.8rem, 4vw, 2.2rem);
+            margin-bottom: 8px;
+        }
+
+        .shop-item-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+
+        .shop-item-description {
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            font-size: clamp(0.75rem, 1.8vw, 0.85rem);
+        }
+
+        .shop-item-price {
+            color: var(--pink-primary);
+            font-weight: 700;
+            font-size: clamp(1rem, 2.2vw, 1.1rem);
+        }
+
+        /* Internship Card */
+        .internship-card {
+            background: linear-gradient(135deg, var(--pink-primary), var(--accent));
+            border-radius: 25px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            display: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .internship-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%);
+            animation: pulse 4s infinite ease-in-out;
+        }
+
+        .internship-title {
+            font-family: 'Comic Neue', cursive;
+            font-size: clamp(1.8rem, 4vw, 2.2rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .internship-description {
+            font-size: clamp(1rem, 2.5vw, 1.1rem);
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 20px;
+            line-height: 1.5;
+            position: relative;
+            z-index: 1;
+        }
+
+        .internship-button {
+            background: var(--text-primary);
+            color: var(--pink-primary);
+            border: none;
+            border-radius: 50px;
+            padding: 10px 25px;
+            font-size: clamp(1rem, 2.5vw, 1.1rem);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .internship-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--dark-card);
+            border: 2px solid var(--pink-secondary);
+            border-radius: 15px;
+            padding: 12px 18px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateX(150%);
+            transition: transform 0.5s ease;
+            z-index: 100;
+            max-width: 320px;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification-icon {
+            font-size: clamp(1.5rem, 3vw, 1.8rem);
+        }
+
+        .notification-text {
+            font-weight: 600;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            color: var(--text-primary);
+        }
+
+        /* Flash Message */
+        .flash-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: var(--dark-card);
+            border: 3px solid var(--pink-primary);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            z-index: 200;
+            max-width: 90%;
+            width: 400px;
+            transition: transform 0.3s ease;
+        }
+
+        .flash-message.show {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .flash-message-icon {
+            font-size: clamp(2.5rem, 5vw, 3rem);
+            margin-bottom: 15px;
+        }
+
+        .flash-message-text {
+            font-size: clamp(1.1rem, 2.5vw, 1.2rem);
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .flash-message-money {
+            font-size: clamp(1.3rem, 3vw, 1.5rem);
+            font-weight: 700;
+            color: var(--pink-primary);
+            margin-bottom: 12px;
+        }
+
+        .flash-message-item {
+            font-size: clamp(1rem, 2.2vw, 1.1rem);
+            color: var(--text-secondary);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-secondary);
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+            margin-top: 30px;
+        }
+
+        /* Funny Elements */
+        .funny-comment {
+            font-style: italic;
+            color: var(--text-secondary);
+            text-align: center;
+            margin: 10px 0;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .section {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+            
+            .stats-panel {
+                gap: 10px;
+                margin-bottom: 20px;
+            }
+            
+            .stat-card {
+                min-width: 120px;
+                padding: 12px;
+            }
+            
+            .shop-items {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                gap: 10px;
+            }
+            
+            .shop-item {
+                padding: 12px;
+            }
+            
+            .notification {
+                bottom: 15px;
+                right: 15px;
+                left: 15px;
+                max-width: none;
+            }
+            
+            .flash-message {
+                width: 90%;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Eating Sound Effect -->
+    <audio id="eatSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmFgU7k9n1unEiBC13yO/eizEIHWq+8+OWT" type="audio/wav">
+    </audio>
+
+    <header>
+        <h1>Momo Money Tech Adventure 🥟💻✨</h1>
+        <p class="subtitle">Eat momos, collect money, and get inspired for your tech internship!</p>
+        <p class="funny-comment">Warning: May cause excessive happiness and sudden wealth! 😄</p>
+    </header>
+
+    <div class="container">
+        <!-- Stats Panel -->
+        <div class="stats-panel">
+            <div class="stat-card">
+                <div class="stat-value" id="momoCount">0</div>
+                <div class="stat-label">Momos Eaten</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="moneyCount">$0</div>
+                <div class="stat-label">Money Collected</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="internshipProgress">0%</div>
+                <div class="stat-label">Internship Ready</div>
+            </div>
+        </div>
+
+        <!-- Momo Eating Section -->
+        <div class="section momo-eating">
+            <h2 class="section-title">Momo Eating Time 🍽️</h2>
+            <div class="plate-container">
+                <div class="plate" id="plate">
+                    <!-- Momos will be added here dynamically -->
+                </div>
+                <p class="momo-instruction">Click on the momos to eat them! Nom nom nom! 🤤</p>
+            </div>
+        </div>
+
+        <!-- Money Collection Section -->
+        <div class="section money-collection">
+            <h2 class="section-title">Money Collection 💰</h2>
+            <div class="money-container">
+                <div class="money-emoji" id="mainMoneyEmoji">💵</div>
+                <div class="money-pile" id="moneyPile">
+                    <!-- Money coins will be added here dynamically -->
+                </div>
+                <button class="collect-button" id="collectMoney">
+                    <i class="fas fa-coins"></i>
+                    Collect Money!
+                </button>
+            </div>
+            <p class="funny-comment">Money doesn't grow on trees, but it does grow when you click this button! 🌳💸</p>
+        </div>
+
+        <!-- Tech Internship Quote Section -->
+        <div class="section tech-internship">
+            <h2 class="section-title">Tech Internship Inspiration 💻</h2>
+            <div class="quote-container">
+                <div class="quote-text" id="quoteText">
+                    "The only way to do great work is to love what you do. If you haven't found it yet, keep looking. Don't settle."
+                </div>
+                <div class="quote-author" id="quoteAuthor">- Steve Jobs</div>
+            </div>
+            <button class="new-quote-button" id="newQuote">
+                <i class="fas fa-sync-alt"></i>
+                New Quote
+            </button>
+            <p class="funny-comment">These quotes are 100% guaranteed to make you feel smarter! 🧠✨</p>
+        </div>
+
+        <!-- Girly Items Shop -->
+        <div class="section girly-shop">
+            <h2 class="section-title">Girly Boutique 💄</h2>
+            <p class="funny-comment">Warning: Shopping may cause extreme happiness and empty wallets! 💖🛍️</p>
+            
+            <div class="shop-categories">
+                <button class="category-tab active" data-category="makeup">Makeup</button>
+                <button class="category-tab" data-category="accessories">Accessories</button>
+                <button class="category-tab" data-category="clothing">Clothing</button>
+                <button class="category-tab" data-category="wellness">Wellness</button>
+            </div>
+            
+            <!-- Makeup Category -->
+            <div class="shop-category active" id="makeup">
+                <div class="shop-items">
+                    <div class="shop-item" data-cost="50" data-type="lipstick">
+                        <div class="shop-item-icon">💄</div>
+                        <div class="shop-item-name">Magic Lipstick</div>
+                        <div class="shop-item-description">Makes you 200% more charming!</div>
+                        <div class="shop-item-price">$50</div>
+                    </div>
+                    <div class="shop-item" data-cost="75" data-type="eyeshadow">
+                        <div class="shop-item-icon">👁️</div>
+                        <div class="shop-item-name">Sparkly Eyeshadow</div>
+                        <div class="shop-item-description">Your eyes will sparkle like stars!</div>
+                        <div class="shop-item-price">$75</div>
+                    </div>
+                    <div class="shop-item" data-cost="60" data-type="mascara">
+                        <div class="shop-item-icon">👀</div>
+                        <div class="shop-item-name">Wonder Mascara</div>
+                        <div class="shop-item-description">Bat those lashes like a pro!</div>
+                        <div class="shop-item-price">$60</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Accessories Category -->
+            <div class="shop-category" id="accessories">
+                <div class="shop-items">
+                    <div class="shop-item" data-cost="120" data-type="purse">
+                        <div class="shop-item-icon">👛</div>
+                        <div class="shop-item-name">Designer Purse</div>
+                        <div class="shop-item-description">Fits all your dreams and credit cards!</div>
+                        <div class="shop-item-price">$120</div>
+                    </div>
+                    <div class="shop-item" data-cost="90" data-type="jewelry">
+                        <div class="shop-item-icon">💍</div>
+                        <div class="shop-item-name">Sparkly Ring</div>
+                        <div class="shop-item-description">Distracts people from your code bugs!</div>
+                        <div class="shop-item-price">$90</div>
+                    </div>
+                    <div class="shop-item" data-cost="80" data-type="earrings">
+                        <div class="shop-item-icon">💎</div>
+                        <div class="shop-item-name">Tech Earrings</div>
+                        <div class="shop-item-description">Shaped like tiny computers!</div>
+                        <div class="shop-item-price">$80</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Clothing Category -->
+            <div class="shop-category" id="clothing">
+                <div class="shop-items">
+                    <div class="shop-item" data-cost="150" data-type="dress">
+                        <div class="shop-item-icon">👗</div>
+                        <div class="shop-item-name">Interview Dress</div>
+                        <div class="shop-item-description">So powerful, it writes your resume!</div>
+                        <div class="shop-item-price">$150</div>
+                    </div>
+                    <div class="shop-item" data-cost="100" data-type="blazer">
+                        <div class="shop-item-icon">👔</div>
+                        <div class="shop-item-name">Power Blazer</div>
+                        <div class="shop-item-description">Adds +10 charisma to your stats!</div>
+                        <div class="shop-item-price">$100</div>
+                    </div>
+                    <div class="shop-item" data-cost="80" data-type="shoes">
+                        <div class="shop-item-icon">👠</div>
+                        <div class="shop-item-name">Comfortable Heels</div>
+                        <div class="shop-item-description">Walk like you own the company!</div>
+                        <div class="shop-item-price">$80</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Wellness Category -->
+            <div class="shop-category" id="wellness">
+                <div class="shop-items">
+                    <div class="shop-item" data-cost="40" data-type="heals">
+                        <div class="shop-item-icon">💊</div>
+                        <div class="shop-item-name">Energy Boost</div>
+                        <div class="shop-item-description">For when coffee just isn't enough!</div>
+                        <div class="shop-item-price">$40</div>
+                    </div>
+                    <div class="shop-item" data-cost="60" data-type="face-mask">
+                        <div class="shop-item-icon">🧖‍♀️</div>
+                        <div class="shop-item-name">Face Mask</div>
+                        <div class="shop-item-description">Hides your "I stayed up coding" face!</div>
+                        <div class="shop-item-price">$60</div>
+                    </div>
+                    <div class="shop-item" data-cost="70" data-type="stress-ball">
+                        <div class="shop-item-icon">🤯</div>
+                        <div class="shop-item-name">Stress Ball</div>
+                        <div class="shop-item-description">Squeeze instead of screaming at bugs!</div>
+                        <div class="shop-item-price">$70</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Internship Card -->
+        <div class="internship-card" id="internshipCard">
+            <h2 class="internship-title">🎉 Congratulations! 🎉</h2>
+            <p class="internship-description">
+                You've eaten enough momos, collected enough money, and gained enough inspiration to unlock your dream tech internship! 
+                Your hard work has paid off!
+            </p>
+            <a href="https://internshala.com" target="_blank" class="internship-button">
+                Apply for Internship on Internshala!
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <p>Made with 💖 and too many momos! | Disclaimer: No momos were harmed in the making of this game (they were deliciously eaten)</p>
+    </footer>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <div class="notification-icon" id="notificationIcon">🥟</div>
+        <div class="notification-text" id="notificationText">You ate a momo!</div>
+    </div>
+
+    <!-- Flash Message -->
+    <div class="flash-message" id="flashMessage">
+        <div class="flash-message-icon" id="flashMessageIcon">💰</div>
+        <div class="flash-message-text">Purchase Successful!</div>
+        <div class="flash-message-money" id="flashMessageMoney">Money: $0</div>
+        <div class="flash-message-item" id="flashMessageItem">You bought: Nothing</div>
+    </div>
+
+    <script>
+        // Game state
+        let gameState = {
+            momos: 0,
+            money: 0,
+            experience: 0,
+            momoValue: 5,
+            moneyValue: 10,
+            hasEnergyBoost: false,
+            hasProfessionalMakeup: false,
+            hasDesignerPurse: false,
+            hasInterviewDress: false,
+            hasElegantJewelry: false,
+            hasComfortableHeels: false,
+            internshipUnlocked: false
+        };
+
+        // Tech internship quotes
+        const techQuotes = [
+            { text: "The only way to do great work is to love what you do. If you haven't found it yet, keep looking. Don't settle.", author: "Steve Jobs" },
+            { text: "Technology is nothing. What's important is that you have a faith in people, that they're basically good and smart, and if you give them tools, they'll do wonderful things with them.", author: "Steve Jobs" },
+            { text: "The advance of technology is based on making it fit in so that you don't really even notice it, so it's part of everyday life.", author: "Bill Gates" },
+            { text: "Your work is going to fill a large part of your life, and the only way to be truly satisfied is to do what you believe is great work. And the only way to do great work is to love what you do.", author: "Steve Jobs" },
+            { text: "Innovation distinguishes between a leader and a follower.", author: "Steve Jobs" },
+            { text: "The Internet is becoming the town square for the global village of tomorrow.", author: "Bill Gates" },
+            { text: "Success is a lousy teacher. It seduces smart people into thinking they can't lose.", author: "Bill Gates" },
+            { text: "If you're the smartest person in the room, then you're in the wrong room.", author: "Anonymous" },
+            { text: "The best way to predict the future is to invent it.", author: "Alan Kay" },
+            { text: "The question of whether a computer can think is no more interesting than the question of whether a submarine can swim.", author: "Edsger W. Dijkstra" }
+        ];
+
+        // Funny item descriptions
+        const funnyItemDescriptions = {
+            lipstick: "Now you can pucker up for success!",
+            eyeshadow: "Your eyes will be more mesmerizing than a recursive function!",
+            mascara: "Bat those lashes at your interviewer!",
+            purse: "Big enough to hold your laptop and dreams!",
+            jewelry: "Shines brighter than your future!",
+            earrings: "Dangle like well-structured code!",
+            dress: "So powerful, it should come with its own API!",
+            blazer: "Adds +10 to your charisma stat!",
+            shoes: "Walk into that interview like you own the place!",
+            heals: "Because coding all night is exhausting!",
+            "face-mask": "Hides your 'I debugged until 3 AM' face!",
+            "stress-ball": "Squeeze this instead of throwing your laptop!"
+        };
+
+        // DOM elements
+        const momoCountEl = document.getElementById('momoCount');
+        const moneyCountEl = document.getElementById('moneyCount');
+        const internshipProgressEl = document.getElementById('internshipProgress');
+        const plateEl = document.getElementById('plate');
+        const mainMoneyEmojiEl = document.getElementById('mainMoneyEmoji');
+        const moneyPileEl = document.getElementById('moneyPile');
+        const quoteTextEl = document.getElementById('quoteText');
+        const quoteAuthorEl = document.getElementById('quoteAuthor');
+        const internshipCardEl = document.getElementById('internshipCard');
+        const notificationEl = document.getElementById('notification');
+        const notificationIconEl = document.getElementById('notificationIcon');
+        const notificationTextEl = document.getElementById('notificationText');
+        const flashMessageEl = document.getElementById('flashMessage');
+        const flashMessageIconEl = document.getElementById('flashMessageIcon');
+        const flashMessageMoneyEl = document.getElementById('flashMessageMoney');
+        const flashMessageItemEl = document.getElementById('flashMessageItem');
+        const eatSoundEl = document.getElementById('eatSound');
+
+        // Initialize momos on plate
+        function initializeMomos() {
+            for (let i = 0; i < 5; i++) {
+                addMomoToPlate();
+            }
+        }
+
+        // Add momo to plate
+        function addMomoToPlate() {
+            const momo = document.createElement('div');
+            momo.className = 'momo';
+            momo.textContent = '🥟';
+            
+            // Random position within the plate
+            const plateRect = plateEl.getBoundingClientRect();
+            const angle = Math.random() * Math.PI * 2;
+            const distance = Math.random() * 80; // Max distance from center
+            const x = Math.cos(angle) * distance;
+            const y = Math.sin(angle) * distance;
+            
+            momo.style.left = `calc(50% + ${x}px)`;
+            momo.style.top = `calc(50% + ${y}px)`;
+            momo.style.transform = 'translate(-50%, -50%)';
+            
+            // Random animation delay
+            momo.style.animationDelay = `${Math.random() * 2}s`;
+            
+            // Click event
+            momo.addEventListener('click', function() {
+                eatMomo(this);
+            });
+            
+            plateEl.appendChild(momo);
+        }
+
+        // Initialize money pile
+        function initializeMoneyPile() {
+            for (let i = 0; i < 5; i++) {
+                addMoneyCoin();
+            }
+        }
+
+        // Add money coin to pile
+        function addMoneyCoin() {
+            const coin = document.createElement('div');
+            coin.className = 'money-coin';
+            coin.textContent = '💵';
+            
+            // Random animation delay
+            coin.style.animationDelay = `${Math.random() * 3}s`;
+            
+            moneyPileEl.appendChild(coin);
+        }
+
+        // Eat momo
+        function eatMomo(momo) {
+            // Play eating sound
+            eatSoundEl.currentTime = 0;
+            eatSoundEl.play().catch(e => console.log("Audio play failed:", e));
+            
+            gameState.momos++;
+            const moneyEarned = gameState.momoValue * (gameState.hasEnergyBoost ? 2 : 1);
+            gameState.money += moneyEarned;
+            gameState.experience++;
+            
+            // Visual effects
+            momo.classList.add('eaten');
+            addFloatingMoney(moneyEarned, momo);
+            
+            // Remove momo after animation
+            setTimeout(() => {
+                if (momo.parentNode) {
+                    momo.parentNode.removeChild(momo);
+                    addMomoToPlate(); // Add a new momo
+                }
+            }, 500);
+            
+            updateUI();
+            showNotification(`🥟 You ate a delicious momo and earned $${moneyEarned}!`, 'momo');
+            
+            // Check for internship unlock
+            checkInternshipUnlock();
+        }
+
+        // Collect money
+        function collectMoney() {
+            const moneyEarned = gameState.moneyValue * 10;
+            gameState.money += moneyEarned;
+            gameState.experience += Math.floor(moneyEarned / 10);
+            
+            // Visual effects - grow the main money emoji
+            const currentSize = parseFloat(mainMoneyEmojiEl.style.fontSize) || 5;
+            const newSize = Math.min(currentSize + 0.5, 10);
+            mainMoneyEmojiEl.style.fontSize = `${newSize}rem`;
+            
+            // Add money coins to the pile
+            const coinsToAdd = Math.min(Math.floor(moneyEarned / 20), 5);
+            for (let i = 0; i < coinsToAdd; i++) {
+                setTimeout(() => {
+                    addMoneyCoin();
+                }, i * 100);
+            }
+            
+            // Add floating money emojis
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => {
+                    const money = document.createElement('div');
+                    money.className = 'floating-money';
+                    money.textContent = '💵';
+                    
+                    // Random position around the main money emoji
+                    const rect = mainMoneyEmojiEl.getBoundingClientRect();
+                    const containerRect = mainMoneyEmojiEl.parentElement.getBoundingClientRect();
+                    
+                    const offsetX = (Math.random() - 0.5) * 100;
+                    const offsetY = (Math.random() - 0.5) * 50;
+                    
+                    money.style.left = `${rect.left - containerRect.left + rect.width / 2 + offsetX}px`;
+                    money.style.top = `${rect.top - containerRect.top + rect.height / 2 + offsetY}px`;
+                    
+                    mainMoneyEmojiEl.parentElement.appendChild(money);
+                    
+                    setTimeout(() => {
+                        if (money.parentNode) {
+                            money.parentNode.removeChild(money);
+                        }
+                    }, 2000);
+                }, i * 200);
+            }
+            
+            updateUI();
+            showNotification(`💰 You collected $${moneyEarned}! Your money pile is growing!`, 'money');
+            
+            // Check for internship unlock
+            checkInternshipUnlock();
+        }
+
+        // Add floating money
+        function addFloatingMoney(amount, element) {
+            const money = document.createElement('div');
+            money.className = 'floating-money';
+            money.textContent = '💵';
+            
+            // Position at the element's location
+            const rect = element.getBoundingClientRect();
+            const parentRect = element.parentElement.getBoundingClientRect();
+            
+            money.style.left = `${rect.left - parentRect.left + rect.width / 2}px`;
+            money.style.top = `${rect.top - parentRect.top}px`;
+            
+            element.parentElement.appendChild(money);
+            
+            // Remove after animation
+            setTimeout(() => {
+                if (money.parentNode) {
+                    money.parentNode.removeChild(money);
+                }
+            }, 2000);
+        }
+
+        // Get new quote
+        function getNewQuote() {
+            const randomIndex = Math.floor(Math.random() * techQuotes.length);
+            const quote = techQuotes[randomIndex];
+            
+            quoteTextEl.textContent = `"${quote.text}"`;
+            quoteAuthorEl.textContent = `- ${quote.author}`;
+            
+            // Add experience for getting inspired
+            gameState.experience += 5;
+            updateUI();
+            
+            showNotification('💡 New inspiration unlocked! +5 experience', 'success');
+            
+            // Check for internship unlock
+            checkInternshipUnlock();
+        }
+
+        // Purchase girly item
+        function purchaseGirlyItem(cost, type, name) {
+            if (gameState.money < cost) {
+                showNotification('Go earn more money you lazy.....', 'warning');
+                return;
+            }
+            
+            gameState.money -= cost;
+            
+            // Add experience based on item type
+            let experienceGained = 0;
+            switch(type) {
+                case 'lipstick':
+                    gameState.hasProfessionalMakeup = true;
+                    experienceGained = 10;
+                    break;
+                case 'eyeshadow':
+                    experienceGained = 8;
+                    break;
+                case 'mascara':
+                    experienceGained = 7;
+                    break;
+                case 'purse':
+                    gameState.hasDesignerPurse = true;
+                    experienceGained = 15;
+                    break;
+                case 'jewelry':
+                    gameState.hasElegantJewelry = true;
+                    experienceGained = 12;
+                    break;
+                case 'earrings':
+                    experienceGained = 10;
+                    break;
+                case 'dress':
+                    gameState.hasInterviewDress = true;
+                    experienceGained = 20;
+                    break;
+                case 'blazer':
+                    experienceGained = 15;
+                    break;
+                case 'shoes':
+                    gameState.hasComfortableHeels = true;
+                    experienceGained = 8;
+                    break;
+                case 'heals':
+                    gameState.hasEnergyBoost = true;
+                    experienceGained = 10;
+                    break;
+                case 'face-mask':
+                    experienceGained = 5;
+                    break;
+                case 'stress-ball':
+                    experienceGained = 8;
+                    break;
+            }
+            
+            gameState.experience += experienceGained;
+            
+            // Show flash message
+            showFlashMessage(name);
+            
+            updateUI();
+            
+            // Check for internship unlock
+            checkInternshipUnlock();
+        }
+
+        // Show flash message
+        function showFlashMessage(itemName) {
+            flashMessageMoneyEl.textContent = `Money: $${gameState.money}`;
+            flashMessageItemEl.textContent = `You bought: ${itemName}`;
+            
+            // Set random icon
+            const icons = ['💰', '💄', '👛', '👗', '💊', '🧖‍♀️', '👠', '💍'];
+            flashMessageIconEl.textContent = icons[Math.floor(Math.random() * icons.length)];
+            
+            flashMessageEl.classList.add('show');
+            
+            setTimeout(() => {
+                flashMessageEl.classList.remove('show');
+            }, 3000);
+        }
+
+        // Update UI
+        function updateUI() {
+            momoCountEl.textContent = gameState.momos;
+            moneyCountEl.textContent = `$${gameState.money}`;
+            
+            // Internship progress
+            const internshipProgress = Math.min((gameState.experience / 200 + gameState.money / 2000) / 2 * 100, 100);
+            internshipProgressEl.textContent = `${Math.floor(internshipProgress)}%`;
+        }
+
+        // Check if internship is unlocked
+        function checkInternshipUnlock() {
+            if (!gameState.internshipUnlocked && gameState.experience >= 200 && gameState.money >= 2000) {
+                gameState.internshipUnlocked = true;
+                internshipCardEl.style.display = 'block';
+                showNotification('🎊 Tech internship unlocked! You can now apply!', 'success');
+            }
+        }
+
+        // Show notification
+        function showNotification(message, type = 'momo') {
+            notificationTextEl.textContent = message;
+            
+            // Set icon based on type
+            switch(type) {
+                case 'momo':
+                    notificationIconEl.textContent = '🥟';
+                    break;
+                case 'money':
+                    notificationIconEl.textContent = '💰';
+                    break;
+                case 'success':
+                    notificationIconEl.textContent = '🎉';
+                    break;
+                case 'warning':
+                    notificationIconEl.textContent = '⚠️';
+                    break;
+            }
+            
+            notificationEl.classList.add('show');
+            
+            // Hide notification after 2 seconds
+            setTimeout(() => {
+                notificationEl.classList.remove('show');
+            }, 2000);
+        }
+
+        // Event listeners
+        document.getElementById('collectMoney').addEventListener('click', collectMoney);
+        document.getElementById('newQuote').addEventListener('click', getNewQuote);
+
+        // Category tabs
+        document.querySelectorAll('.category-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remove active class from all tabs and categories
+                document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.shop-category').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding category
+                this.classList.add('active');
+                const categoryId = this.dataset.category;
+                document.getElementById(categoryId).classList.add('active');
+            });
+        });
+
+        // Girly shop items
+        document.querySelectorAll('.shop-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const cost = parseInt(this.dataset.cost);
+                const type = this.dataset.type;
+                const name = this.querySelector('.shop-item-name').textContent;
+                purchaseGirlyItem(cost, type, name);
+            });
+        });
+
+        // Initialize game
+        initializeMomos();
+        initializeMoneyPile();
+        updateUI();
+    </script>
+</body>
+</html>
